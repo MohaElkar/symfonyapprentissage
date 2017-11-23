@@ -1,0 +1,25 @@
+# On importe le controller qui contient les routes.
+# Utilisation des commentaires au dessus des Actions pour déclarer les routes.
+oc_platform_route:
+  resource: "@OCPlatformBundle/Controller"
+  type: annotation
+  prefix:   /platform
+
+
+oc_platform_home:
+    path:      /{page}
+    defaults:
+        _controller: OCPlatformBundle:Advert:index
+        page: 1
+    requirements:
+        page: \d*
+
+
+#oc_platform_view_slug:
+ #   path:     /{year}/{slug}.{_format}
+  #  defaults:
+   #     _controller: OCPlatformBundle:Advert:viewSlug
+    #    _format:   html
+    #requirements:
+     #   year: \d{4}
+      #  format: html|xml

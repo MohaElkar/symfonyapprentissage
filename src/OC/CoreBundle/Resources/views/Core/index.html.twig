@@ -1,0 +1,16 @@
+{# src/OC/CoreBundle/Resources/views/index.html.twig #}
+
+{% extends "OCCoreBundle:Core:layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }} - Accueil
+{% endblock %}
+
+{% block body %}
+    {# Affichage des messages flash #}
+    {% for message in app.session.flashbag.get('info') %}
+        <p class="alert alert-default">{{ message }}</p>
+    {% endfor %}
+
+    Afficher les 3 dernières annonces.
+{% endblock %}
