@@ -13,14 +13,12 @@
     {{ include("OCPlatformBundle:Advert:form.html.twig") }}
 
     <p>
-        Ajouter une annonce
-    </p>
-
-    <p>
-        <a href="{{ path('oc_platform_view', {'id': advert.id}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour à l'annonce
-        </a>
+        {% if advert.id is not null %}
+            <a href="{{ path('oc_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour à l'annonce
+            </a>
+        {% endif %}
     </p>
 
 {% endblock %}

@@ -1,20 +1,17 @@
 <?php
+// src/OC/PlatformBundle/Entity/Skill.php
 
 namespace OC\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Skill
- *
  * @ORM\Table(name="oc_skill")
- * @ORM\Entity(repositoryClass="OC\PlatformBundle\Repository\SkillRepository")
+ * @ORM\Entity(repositoryClass="OC\PlatformBundle\Entity\SkillRepository")
  */
 class Skill
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,17 +19,16 @@ class Skill
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
+    // Getters et setters
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -63,4 +59,3 @@ class Skill
         return $this->name;
     }
 }
-

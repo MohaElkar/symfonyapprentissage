@@ -1,20 +1,18 @@
 <?php
+// src/OC/PlatformBundle/Entity/Image.php
 
 namespace OC\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Image
- *
  * @ORM\Table(name="oc_image")
- * @ORM\Entity(repositoryClass="OC\PlatformBundle\Repository\ImageRepository")
+ * @ORM\Entity
  */
 class Image
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,24 +20,63 @@ class Image
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="alt", type="string", length=255)
      */
     private $alt;
 
+    private $file;
+
+
+    public function upload(){
+        if($this->file === null){
+            return;
+        }
+
+        $name = $this->file->getClientOriginalName();
+        $this->file->move($this->getUploadRootDir(), $name);
+        $this->url = $name;
+        $this->alt = $name;
+    }
+
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
+        return 'uploads/img';
+    }
+
+    protected function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    // Getters et setters
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -94,4 +131,3 @@ class Image
         return $this->alt;
     }
 }
-

@@ -1,7 +1,8 @@
 <?php
 
 namespace OC\PlatformBundle\Repository;
-
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * AdvertRepository
  *
@@ -29,5 +30,51 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
                      ->orderBy("a.date", "DESC");
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getAdvertWithApplications(){
+        $queryBuilder = $this->createQueryBuilder("a");
+        $queryBuilder->where("a")
+                    ->leftJoin("a.applications", "app")
+                    ->addSelect("app");
+
+        return $queryBuilder;
+    }
+
+    public function getAdvertWithCategories(array $categoryNames){
+        $queryBuilder = $this->createQueryBuilder("a");
+        $queryBuilder->where("a")
+                     ->leftJoin("a.categories", "c")
+                     ->addSelect("c");
+        $queryBuilder->where($queryBuilder->expr()->in("c.name", $categoryNames));
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getAdvert(){
+        $qb = $this->createQueryBuilder("a")
+            ->leftJoin("a.image", "i")
+            ->addSelect("i")
+            ->leftJoin("a.categories", "c")
+            ->addSelect("c")
+            ->orderBy("a.date", "DESC")
+            ->getQuery();
+
+        return $qb->getResult();
+    }
+
+    public function getAdverts($page, $nbPerPage){
+        $qb = $this->createQueryBuilder("a")
+            ->leftJoin("a.image", "i")
+            ->addSelect("i")
+            ->leftJoin("a.categories", "c")
+            ->addSelect("c")
+            ->orderBy("a.date", "DESC")
+            ->getQuery();
+
+        $qb->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage);
+
+        return new Paginator($qb, true);
     }
 }

@@ -1,20 +1,17 @@
 <?php
+// src/OC/PlatformBundle/Entity/AdvertSkill.php
 
 namespace OC\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AdvertSkill
- *
+ * @ORM\Entity
  * @ORM\Table(name="oc_advert_skill")
- * @ORM\Entity(repositoryClass="OC\PlatformBundle\Repository\AdvertSkillRepository")
  */
 class AdvertSkill
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -22,8 +19,6 @@ class AdvertSkill
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="level", type="string", length=255)
      */
     private $level;
@@ -40,10 +35,10 @@ class AdvertSkill
      */
     private $skill;
 
+    // ... vous pouvez ajouter d'autres attributs bien sûr
+
     /**
-     * Get id
-     *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -51,22 +46,14 @@ class AdvertSkill
     }
 
     /**
-     * Set level
-     *
      * @param string $level
-     *
-     * @return AdvertSkill
      */
     public function setLevel($level)
     {
         $this->level = $level;
-
-        return $this;
     }
 
     /**
-     * Get level
-     *
      * @return string
      */
     public function getLevel()
@@ -75,23 +62,15 @@ class AdvertSkill
     }
 
     /**
-     * Set advert
-     *
-     * @param \OC\PlatformBundle\Entity\Advert $advert
-     *
-     * @return AdvertSkill
+     * @param Advert $advert
      */
-    public function setAdvert(\OC\PlatformBundle\Entity\Advert $advert)
+    public function setAdvert(Advert $advert)
     {
         $this->advert = $advert;
-
-        return $this;
     }
 
     /**
-     * Get advert
-     *
-     * @return \OC\PlatformBundle\Entity\Advert
+     * @return Advert
      */
     public function getAdvert()
     {
@@ -99,23 +78,15 @@ class AdvertSkill
     }
 
     /**
-     * Set skill
-     *
-     * @param \OC\PlatformBundle\Entity\Skill $skill
-     *
-     * @return AdvertSkill
+     * @param Skill $skill
      */
-    public function setSkill(\OC\PlatformBundle\Entity\Skill $skill)
+    public function setSkill(Skill $skill)
     {
         $this->skill = $skill;
-
-        return $this;
     }
 
     /**
-     * Get skill
-     *
-     * @return \OC\PlatformBundle\Entity\Skill
+     * @return Skill
      */
     public function getSkill()
     {
